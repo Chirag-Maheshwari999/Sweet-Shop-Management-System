@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://sweet-shop-management-system-risn.onrender.com';
+const API_URL = 'https://sweet-shop-management-system-exg4.onrender.com';
 
 const api = axios.create({
     baseURL: API_URL,
