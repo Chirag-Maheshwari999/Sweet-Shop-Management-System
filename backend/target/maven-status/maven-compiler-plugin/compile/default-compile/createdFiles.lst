@@ -1,0 +1,13 @@
+com/sweetshop/backend/controller/AuthController.class
+com/sweetshop/backend/model/User.class
+com/sweetshop/backend/service/SweetService.class
+com/sweetshop/backend/security/JwtService.class
+com/sweetshop/backend/controller/SweetController.class
+com/sweetshop/backend/config/SecurityConfig.class
+com/sweetshop/backend/config/ApplicationConfig.class
+com/sweetshop/backend/repository/UserRepository.class
+com/sweetshop/backend/BackendApplication.class
+com/sweetshop/backend/model/Sweet.class
+com/sweetshop/backend/service/AuthenticationService.class
+com/sweetshop/backend/repository/SweetRepository.class
+com/sweetshop/backend/security/JwtAuthenticationFilter.class

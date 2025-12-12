@@ -1,0 +1,13 @@
+/Users/chiragmaheshwari/Sweet-Shop-Management-System/backend/src/main/java/com/sweetshop/backend/model/User.java
+/Users/chiragmaheshwari/Sweet-Shop-Management-System/backend/src/main/java/com/sweetshop/backend/controller/SweetController.java
+/Users/chiragmaheshwari/Sweet-Shop-Management-System/backend/src/main/java/com/sweetshop/backend/service/SweetService.java
+/Users/chiragmaheshwari/Sweet-Shop-Management-System/backend/src/main/java/com/sweetshop/backend/service/AuthenticationService.java
+/Users/chiragmaheshwari/Sweet-Shop-Management-System/backend/src/main/java/com/sweetshop/backend/repository/UserRepository.java
+/Users/chiragmaheshwari/Sweet-Shop-Management-System/backend/src/main/java/com/sweetshop/backend/config/SecurityConfig.java
+/Users/chiragmaheshwari/Sweet-Shop-Management-System/backend/src/main/java/com/sweetshop/backend/security/JwtAuthenticationFilter.java
+/Users/chiragmaheshwari/Sweet-Shop-Management-System/backend/src/main/java/com/sweetshop/backend/model/Sweet.java
+/Users/chiragmaheshwari/Sweet-Shop-Management-System/backend/src/main/java/com/sweetshop/backend/config/ApplicationConfig.java
+/Users/chiragmaheshwari/Sweet-Shop-Management-System/backend/src/main/java/com/sweetshop/backend/repository/SweetRepository.java
+/Users/chiragmaheshwari/Sweet-Shop-Management-System/backend/src/main/java/com/sweetshop/backend/security/JwtService.java
+/Users/chiragmaheshwari/Sweet-Shop-Management-System/backend/src/main/java/com/sweetshop/backend/controller/AuthController.java
+/Users/chiragmaheshwari/Sweet-Shop-Management-System/backend/src/main/java/com/sweetshop/backend/BackendApplication.java
