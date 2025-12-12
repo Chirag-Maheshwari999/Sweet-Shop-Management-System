@@ -13,6 +13,7 @@ import java.util.Map;
 
 @Service
 public class AuthenticationService {
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(AuthenticationService.class);
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
@@ -27,6 +28,7 @@ public class AuthenticationService {
     }
 
     public Map<String, Object> register(User request) {
+        logger.info("Attempting to register user: {}", request.getUsername());
         // Default role is USER if not specified, but in our case we might want to allow
         // specifying it for demo purposes
         // Or restricted logic. For now, let's accept what's passed or default to USER.
@@ -39,6 +41,7 @@ public class AuthenticationService {
                 role);
         repository.save(user);
 
+        logger.info("User registered successfully: {}", request.getUsername());
         // Return minimal info or token directly. Let's return success message.
         Map<String, Object> response = new HashMap<>();
         response.put("message", "User registered successfully");
@@ -46,10 +49,16 @@ public class AuthenticationService {
     }
 
     public Map<String, Object> authenticate(User request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
-                        request.getPassword()));
+        logger.info("Attempting to authenticate user: {}", request.getUsername());
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getUsername(),
+                            request.getPassword()));
+        } catch (Exception e) {
+            logger.error("Authentication failed for user: {}", request.getUsername(), e);
+            throw e;
+        }
         var user = repository.findByUsername(request.getUsername())
                 .orElseThrow();
 
@@ -63,6 +72,7 @@ public class AuthenticationService {
 
         var jwtToken = jwtService.generateToken(userDetails);
 
+        logger.info("User authenticated successfully: {}", request.getUsername());
         Map<String, Object> response = new HashMap<>();
         response.put("token", jwtToken);
         response.put("user", user); // Return user info
