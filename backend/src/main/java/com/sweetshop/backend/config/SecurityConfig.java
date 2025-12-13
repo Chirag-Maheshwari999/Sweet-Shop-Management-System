@@ -59,6 +59,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/api/sweets/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/sweets/**").hasRole("ADMIN")
 
+                        // ✅ Explicitly allow OPTIONS for preflight checks
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
                         // 🔐 Everything else requires auth
                         .anyRequest().authenticated())
 
@@ -83,14 +86,14 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         // 🔥 Netlify frontend
-        config.setAllowedOrigins(
-                Collections.singletonList("https://incandescent-kelpie-b14ce9.netlify.app"));
+        // Allow all origins (Localhost + Netlify + Render)
+        config.setAllowedOriginPatterns(Collections.singletonList("*"));
 
         config.setAllowedMethods(
                 Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 
-        config.setAllowedHeaders(
-                Arrays.asList("Authorization", "Content-Type"));
+        // Allow all headers to avoid preflight errors
+        config.setAllowedHeaders(Collections.singletonList("*"));
 
         config.setAllowCredentials(true);
 
