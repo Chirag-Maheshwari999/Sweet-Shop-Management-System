@@ -54,6 +54,8 @@ public class SecurityConfig {
                         // public shop?
                         // Previous config had .authenticated(). Let's stick to authenticated for
                         // consistency unless requested otherwise.
+                        .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/sweets/*/purchase")
+                        .authenticated() // Allow purchase for any authenticated user
                         .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/sweets/**").hasRole("ADMIN")
                         .requestMatchers(org.springframework.http.HttpMethod.PUT, "/api/sweets/**").hasRole("ADMIN")
                         .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/sweets/**").hasRole("ADMIN")
