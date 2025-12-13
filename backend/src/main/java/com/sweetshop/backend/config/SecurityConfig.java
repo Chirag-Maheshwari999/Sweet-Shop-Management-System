@@ -26,8 +26,7 @@ public class SecurityConfig {
 
     public SecurityConfig(
             JwtAuthenticationFilter jwtAuthFilter,
-            AuthenticationProvider authenticationProvider
-    ) {
+            AuthenticationProvider authenticationProvider) {
         this.jwtAuthFilter = jwtAuthFilter;
         this.authenticationProvider = authenticationProvider;
     }
@@ -35,48 +34,45 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            // 🔥 Disable CSRF for REST APIs
-            .csrf(csrf -> csrf.disable())
+                // 🔥 Disable CSRF for REST APIs
+                .csrf(csrf -> csrf.disable())
 
-            // 🔥 Enable CORS with our config
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                // 🔥 Enable CORS with our config
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
 
-            // 🔐 Authorization rules
-            .authorizeHttpRequests(auth -> auth
-                // ✅ AUTH endpoints (FIXED)
-                .requestMatchers("/auth/**").permitAll()
+                // 🔐 Authorization rules
+                .authorizeHttpRequests(auth -> auth
+                        // ✅ AUTH endpoints (FIXED)
+                        .requestMatchers("/api/auth/**").permitAll()
 
-                // ✅ H2 console (local only)
-                .requestMatchers("/h2-console/**").permitAll()
+                        // ✅ H2 console (local only)
+                        .requestMatchers("/h2-console/**").permitAll()
 
-                // ✅ Public GET access to sweets
-                .requestMatchers(HttpMethod.GET, "/api/sweets/**").permitAll()
+                        // ✅ Public GET access to sweets
+                        .requestMatchers(HttpMethod.GET, "/api/sweets/**").permitAll()
 
-                // 🔐 Purchase requires login
-                .requestMatchers(HttpMethod.POST, "/api/sweets/*/purchase").authenticated()
+                        // 🔐 Purchase requires login
+                        .requestMatchers(HttpMethod.POST, "/api/sweets/*/purchase").authenticated()
 
-                // 🔐 Admin-only operations
-                .requestMatchers(HttpMethod.POST, "/api/sweets/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/api/sweets/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/api/sweets/**").hasRole("ADMIN")
+                        // 🔐 Admin-only operations
+                        .requestMatchers(HttpMethod.POST, "/api/sweets/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/sweets/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/sweets/**").hasRole("ADMIN")
 
-                // 🔐 Everything else requires auth
-                .anyRequest().authenticated()
-            )
+                        // 🔐 Everything else requires auth
+                        .anyRequest().authenticated())
 
-            // 🔥 Stateless JWT
-            .sessionManagement(session ->
-                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            )
+                // 🔥 Stateless JWT
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-            // 🔐 Auth provider
-            .authenticationProvider(authenticationProvider)
+                // 🔐 Auth provider
+                .authenticationProvider(authenticationProvider)
 
-            // 🔐 JWT filter
-            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                // 🔐 JWT filter
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
 
-            // 🧪 Allow H2 console frames
-            .headers(headers -> headers.frameOptions(frame -> frame.disable()));
+                // 🧪 Allow H2 console frames
+                .headers(headers -> headers.frameOptions(frame -> frame.disable()));
 
         return http.build();
     }
@@ -88,21 +84,17 @@ public class SecurityConfig {
 
         // 🔥 Netlify frontend
         config.setAllowedOrigins(
-            Collections.singletonList("https://incandescent-kelpie-b14ce9.netlify.app")
-        );
+                Collections.singletonList("https://incandescent-kelpie-b14ce9.netlify.app"));
 
         config.setAllowedMethods(
-            Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")
-        );
+                Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 
         config.setAllowedHeaders(
-            Arrays.asList("Authorization", "Content-Type")
-        );
+                Arrays.asList("Authorization", "Content-Type"));
 
         config.setAllowCredentials(true);
 
-        UrlBasedCorsConfigurationSource source =
-                new UrlBasedCorsConfigurationSource();
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;
     }

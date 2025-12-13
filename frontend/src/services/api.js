@@ -22,8 +22,8 @@ api.interceptors.request.use(
 );
 
 export const authService = {
-    login: (credentials) => api.post('/auth/login', credentials),
-    register: (userData) => api.post('/auth/register', userData),
+    login: (credentials) => api.post('/api/auth/login', credentials),
+    register: (userData) => api.post('/api/auth/register', userData),
     logout: () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
@@ -31,12 +31,12 @@ export const authService = {
 };
 
 export const sweetService = {
-    getAll: () => api.get('/sweets'),
-    create: (sweetData) => api.post('/sweets', sweetData),
-    update: (id, sweetData) => api.put(`/sweets/${id}`, sweetData),
-    delete: (id) => api.delete(`/sweets/${id}`),
-    purchase: (id) => api.post(`/sweets/${id}/purchase`),
-    restock: (id, amount) => api.post(`/sweets/${id}/restock?amount=${amount}`),
+    getAll: () => api.get('/api/sweets'),
+    create: (sweetData) => api.post('/api/sweets', sweetData),
+    update: (id, sweetData) => api.put(`/api/sweets/${id}`, sweetData),
+    delete: (id) => api.delete(`/api/sweets/${id}`),
+    purchase: (id) => api.post(`/api/sweets/${id}/purchase`),
+    restock: (id, amount) => api.post(`/api/sweets/${id}/restock?amount=${amount}`),
 };
 
 export default api;
